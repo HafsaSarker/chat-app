@@ -1,9 +1,12 @@
 import React from "react";
+import Sidebar from "../components/Sidebar";
+import Chat from "../components/Chat";
 
 function Home() {
   return (
-    <div>
-      <h1>home</h1>
+    <div className="flex justify-start items-start h-full w-full">
+      <Sidebar />
+      <Chat />
     </div>
   );
 }
