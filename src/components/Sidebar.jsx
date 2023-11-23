@@ -6,7 +6,7 @@ import ChatUser from "./ChatUser";
 function Sidebar() {
   return (
     <div className="flex flex-col flex-2 h-full text-white">
-      <nav className="bg-gray-1 py-5 flex justify-between items-center gap-10 px-2">
+      <nav className="bg-gray-1 h-20 flex justify-between items-center gap-10 px-2">
         <h3 className="text-lg">Kiki Chat</h3>
 
         <div className="flex gap-2 justify-center items-center">
@@ -25,7 +25,7 @@ function Sidebar() {
         </div>
       </nav>
 
-      <div className="bg-gray-3 h-full px-2">
+      <div className="bg-gray-2 h-full px-2">
         <Search />
 
         <div className="flex flex-col gap-2">
