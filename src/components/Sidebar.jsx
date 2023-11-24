@@ -7,7 +7,7 @@ function Sidebar() {
   return (
     <div className="flex flex-col flex-2 h-full text-white">
       <nav className="bg-gray-1 h-20 flex justify-between items-center gap-10 px-2">
-        <h3 className="text-lg">Kiki Chat</h3>
+        <h3 className="text-lg text-blue-1 font-semibold">Kiki Chat</h3>
 
         <div className="flex gap-2 justify-center items-center">
           <div className="relative">
@@ -18,10 +18,10 @@ function Sidebar() {
             />
             <span className="bottom-0 left-7 absolute  w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
           </div>
-          <h3 className="text-lg">username</h3>
-          <button className="text-sm bg-gray-50 text-gray-900 px-2 py-0.5 rounded-lg">
-            Logout
-          </button>
+          <div className="flex flex-col justify-start items-start">
+            <h3 className="text-lg">SugarCube</h3>
+            <button className="text-xs text-blue-1 bg-inherit">Logout</button>
+          </div>
         </div>
       </nav>
 
