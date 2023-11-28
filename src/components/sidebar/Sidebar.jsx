@@ -1,6 +1,5 @@
 import React from "react";
 import Search from "./Search";
-import Chat from "./Chat";
 import ChatUser from "./ChatUser";
 
 function Sidebar() {
