@@ -2,11 +2,11 @@ import React from "react";
 
 function Search() {
   return (
-    <div>
+    <div className="border-gray-400 text-gray-400  bg-inherit w-full text-sm flex items-center  border-b border-b-gray-1 h-16 py-9 px-2">
       <input
-        className="my-4 border-b border-gray-400 text-gray-400 py-0.5 bg-inherit w-full focus:outline-none"
+        className="bg-gray-1 w-full px-2 rounded-sm py-1 focus:outline-none"
         type="text"
-        placeholder="Find a user"
+        placeholder="Find or start a conversation"
       />
     </div>
   );

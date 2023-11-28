@@ -7,8 +7,8 @@ import Top from "./Top";
 function Sidebar() {
   return (
     <div className="bg-gray-2 flex flex-col flex-2 h-full text-white">
-      {/* <Search /> */}
-      <div className=" h-full px-2">
+      <Search />
+      <div className="mt-3 h-full px-2">
         <Top />
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between px-1">

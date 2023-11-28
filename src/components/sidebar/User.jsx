@@ -8,7 +8,7 @@ function User() {
   const [deafen, setDeafen] = useState(false);
   const status = "npm install sleep";
   return (
-    <div className="bg-gray-1 h-20 flex justify-between items-center gap-10 px-2">
+    <div className="bg-gray-1 h-20 flex justify-between items-center gap-10 py-4 px-2">
       <div className="flex gap-2 justify-center items-center">
         <div className="relative">
           <img
