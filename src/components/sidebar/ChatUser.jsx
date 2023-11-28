@@ -9,7 +9,7 @@ function ChatUser() {
         alt=""
       />
       <div className="flex flex-col">
-        <h3 className="font-semibold text-lg">SugarCube</h3>
+        <h3 className="font-semibold text-sm">SugarCube</h3>
         <p className="text-xs text-gray-400">Okay thank you</p>
       </div>
     </div>
