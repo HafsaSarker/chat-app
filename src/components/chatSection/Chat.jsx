@@ -2,8 +2,8 @@ import React from "react";
 import { FaVideo } from "react-icons/fa";
 import { FaUserPlus } from "react-icons/fa";
 import { IoIosMore } from "react-icons/io";
-import MsgContainer from "./MsgContainer";
-import MsgInput from "./MsgInput";
+import MsgContainer from "./message/MsgContainer";
+import MsgInput from "./message/MsgInput";
 
 function Chat() {
   return (
