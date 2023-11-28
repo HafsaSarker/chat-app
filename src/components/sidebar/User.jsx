@@ -21,11 +21,11 @@ function User() {
         <div className="flex flex-col justify-start items-start">
           <h3 className="text-md">SugarCube</h3>
           {status.length >= 14 ? (
-            <p className="text-xs text-blue-1 bg-inherit">
+            <p className="text-xs text-gray-400 bg-inherit">
               {status.slice(0, 14)}...
             </p>
           ) : (
-            <p className="text-xs text-blue-1 bg-inherit"></p>
+            <p className="text-xs text-gray-400 bg-inherit"></p>
           )}
         </div>
       </div>
