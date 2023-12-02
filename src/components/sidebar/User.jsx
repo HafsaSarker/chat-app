@@ -2,6 +2,7 @@ import { IoMdMicOff, IoMdMic } from "react-icons/io";
 import { TbHeadphonesOff, TbHeadphonesFilled } from "react-icons/tb";
 import { IoMdSettings } from "react-icons/io";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function User() {
   const [mute, setMute] = useState(true);
@@ -64,7 +65,9 @@ function User() {
         )}
 
         <button className="bg-transparent text-2xl">
-          <IoMdSettings />
+          <Link to="/settings">
+            <IoMdSettings />
+          </Link>
         </button>
       </div>
     </div>

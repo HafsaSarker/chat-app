@@ -9,6 +9,7 @@ export default {
         "gray-3": "#36393e",
         "gray-4": "#424549",
         "blue-1": "#7289da",
+        "blue-2": "#6666FF",
       },
     },
     fontFamily: {
