@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../firebase.js";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   createUser,
   updateUser,
@@ -146,12 +146,12 @@ function Register() {
 
       <p className="text-sm font-light text-center">
         Already have an account?{" "}
-        <a
-          href="/"
+        <Link
+          to="/"
           className="font-medium text-blue-1 hover:underline hover:text-blue-1"
         >
           Login here
-        </a>
+        </Link>
       </p>
     </div>
   );

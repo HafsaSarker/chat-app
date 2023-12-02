@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -77,12 +77,12 @@ function Login() {
 
       <p className="text-sm font-light text-center">
         Don't have an account?{" "}
-        <a
-          href="/register"
+        <Link
+          to="/register"
           className="font-medium text-blue-1 hover:underline hover:text-blue-1"
         >
           Register here
-        </a>
+        </Link>
       </p>
     </div>
   );
