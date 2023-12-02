@@ -5,8 +5,12 @@ import Register from "./pages/Register";
 import Layout from "./layout/Layout";
 import Home from "./pages/Home";
 import Settings from "./pages/Settings";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
   return (
     <Routes>
       <Route path="/" element={<Layout />}>

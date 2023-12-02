@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { TiLockClosed } from "react-icons/ti";
 import UserCard from "../components/settings/UserCard";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase";
 
 function Settings() {
   return (
@@ -47,7 +49,10 @@ function Settings() {
           </p>
 
           <div className="flex gap-5 my-3">
-            <button className="bg-red-500 text-sm py-1 px-3 rounded-sm mt-3 hover:bg-opacity-80">
+            <button
+              onClick={() => signOut(auth)}
+              className="bg-red-500 text-sm py-1 px-3 rounded-sm mt-3 hover:bg-opacity-80"
+            >
               Logout
             </button>
 
