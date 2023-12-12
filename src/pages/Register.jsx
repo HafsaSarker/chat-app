@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../firebase.js";
 import { storage } from "../firebase.js";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  createUser,
-  updateUser,
-  addDocInUserCollection,
-  initUserChatsCollection,
-} from "../utils/register.js";
 
 function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
-    user_name: "",
+    displayName: "",
     email: "",
     password: "",
     avatar: "",
@@ -36,32 +33,40 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    const { displayName, email, password, avatar } = formData;
+
     try {
-      const res = await createUser(formData.email, formData.password);
+      // create user
+      const res = await createUserWithEmailAndPassword(auth, email, password);
 
       // upload user avatar
-      const storageRef = ref(storage, formData.user_name);
+      const storageRef = ref(storage, displayName);
 
-      const uploadTask = uploadBytesResumable(storageRef, formData.avatar);
+      await uploadBytesResumable(storageRef, avatar).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          try {
+            //Update profile
+            await updateProfile(res.user, {
+              displayName,
+              photoURL: downloadURL,
+            });
 
-      uploadTask.on(
-        (error) => {
-          setError(error.message);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            await updateUser(res.user, formData, downloadURL);
+            //create user on firestore
+            await setDoc(doc(db, "users", res.user.uid), {
+              uid: res.user.uid,
+              displayName,
+              email,
+              photoURL: downloadURL,
+            });
 
-            // Add a new document in collection "users"
-            await addDocInUserCollection(res.user.uid, formData, downloadURL);
-
-            // A collection of all the user's chats
-            await initUserChatsCollection(res.user.uid);
-
+            //create empty user chats on firestore
+            await setDoc(doc(db, "userChats", res.user.uid), {});
             navigate("/home");
-          });
-        }
-      );
+          } catch (error) {
+            console.log(error.message);
+          }
+        });
+      });
     } catch (error) {
       setError(error.message);
     }
@@ -74,13 +79,16 @@ function Register() {
 
       <form className="flex flex-col gap-2 w-96" onSubmit={handleRegister}>
         <div>
-          <label htmlFor="user_name" className="block mb-2 text-sm font-medium">
+          <label
+            htmlFor="displayName"
+            className="block mb-2 text-sm font-medium"
+          >
             Username
           </label>
           <input
             type="text"
-            id="user_name"
-            name="user_name"
+            id="displayName"
+            name="displayName"
             className="bg-gray-3 border-0 text-sm rounded-lg focus:outline-none block w-full p-2.5"
             placeholder="SugarCube"
             required

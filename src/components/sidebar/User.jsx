@@ -1,13 +1,17 @@
 import { IoMdMicOff, IoMdMic } from "react-icons/io";
 import { TbHeadphonesOff, TbHeadphonesFilled } from "react-icons/tb";
 import { IoMdSettings } from "react-icons/io";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 function User() {
   const [mute, setMute] = useState(true);
   const [deafen, setDeafen] = useState(false);
   const status = "npm install sleep";
+
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <div className="bg-gray-1 h-20 flex justify-between items-center gap-10 py-4 px-2">
       <div className="flex gap-2 justify-center items-center">
@@ -20,7 +24,7 @@ function User() {
           <span className="bottom-0 left-7 absolute  w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
         </div>
         <div className="flex flex-col justify-start items-start">
-          <h3 className="text-md">SugarCube</h3>
+          <h3 className="text-md">{currentUser.displayName}</h3>
           {status.length >= 14 ? (
             <p className="text-xs text-gray-400 bg-inherit">
               {status.slice(0, 14)}...
