@@ -17,8 +17,8 @@ function User() {
       <div className="flex gap-2 justify-center items-center">
         <div className="relative">
           <img
-            className="w-10 h-10 rounded-full"
-            src="https://www.unisoftbank.com/wp-content/uploads/2022/12/black-cat-pfp-for-discord-10.jpg"
+            className="w-10 h-10 rounded-full object-cover"
+            src={currentUser.photoURL}
             alt=""
           />
           <span className="bottom-0 left-7 absolute  w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
