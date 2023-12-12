@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 function UserCard() {
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <div className="flex flex-col items-center justify-between rounded-lg min-w-max w-full bg-gray-1 p-4">
       {/* top part */}
@@ -9,13 +12,13 @@ function UserCard() {
           <div className="relative">
             <img
               className="w-20 h-20 rounded-full object-cover"
-              src="https://www.unisoftbank.com/wp-content/uploads/2022/12/black-cat-pfp-for-discord-10.jpg"
+              src={currentUser.photoURL}
             />
             <span className="bottom-0 left-14 absolute  w-4 h-4 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
           </div>
 
           <div className="flex flex-col pt-5">
-            <p className="text-lg font-semibold">sugarCube</p>
+            <p className="text-lg font-semibold">{currentUser.displayName}</p>
 
             <div className="flex items-center gap-1">
               <img src="nitro7.png" width={20} />
@@ -33,22 +36,26 @@ function UserCard() {
       <div className="p-4 rounded-md mt-4 w-full bg-gray-2 flex flex-col gap-4">
         <div>
           <p className="text-gray-400 font-semibold text-xs">USERNAME</p>
-          <p className="text-sm">SugarCube</p>
+          <p className="text-sm">{currentUser.displayName}</p>
         </div>
 
         <div>
           <p className="text-gray-400 font-semibold text-xs">USER ID</p>
-          <p className="text-sm">0X82744DI2C</p>
+          <p className="text-sm">{currentUser.uid}</p>
         </div>
 
         <div>
           <p className="text-gray-400 font-semibold text-xs">EMAIL</p>
-          <p className="text-sm">sugar@gmail.com</p>
+          <p className="text-sm">{currentUser.email}</p>
         </div>
 
         <div>
           <p className="text-gray-400 font-semibold text-xs">PHONE NUMBER</p>
-          <p className="text-sm">1234567810</p>
+          {currentUser.phoneNumber ? (
+            <p className="text-sm">{currentUser.phoneNumber}</p>
+          ) : (
+            <p className="text-sm">Wumpus</p>
+          )}
         </div>
       </div>
     </div>

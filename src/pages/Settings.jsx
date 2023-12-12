@@ -45,7 +45,7 @@ function Settings() {
         <div className="flex flex-col my-3">
           <p className="text-gray-400 font-semibold text-xs">ACCOUNT STATUS</p>
           <p className="text-xs mt-2 text-gray-400">
-            Logging out of your account means you can log back in any time
+            Logging out of your account means you can log back in any time duh!
           </p>
 
           <div className="flex gap-5 my-3">
