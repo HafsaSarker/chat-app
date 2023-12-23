@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getDocs, where, query, collection } from "firebase/firestore";
 import { db } from "../../firebase";
+import { AuthContext } from "../../context/AuthContext";
 
 function Search() {
   const [showCard, setShowCard] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [users, setUsers] = useState([]);
+
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     const getAllUsers = async () => {
@@ -18,10 +21,11 @@ function Search() {
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
-        setUsers((prev) => ({
-          ...prev,
-          [doc.id]: doc.data(),
-        }));
+        doc.data().uid != currentUser.uid &&
+          setUsers((prev) => ({
+            ...prev,
+            [doc.id]: doc.data(),
+          }));
       });
     };
 
