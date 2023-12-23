@@ -15,14 +15,11 @@ function User() {
   return (
     <div className="bg-gray-1 h-20 flex justify-between items-center gap-10 py-4 px-2">
       <div className="flex gap-2 justify-center items-center">
-        <div className="relative">
-          <img
-            className="w-10 h-10 rounded-full object-cover"
-            src={currentUser.photoURL}
-            alt=""
-          />
-          <span className="bottom-0 left-7 absolute  w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
-        </div>
+        <img
+          className="w-10 h-10 rounded-full"
+          src={currentUser.photoURL}
+          alt=""
+        />
         <div className="flex flex-col justify-start items-start">
           <h3 className="text-md">{currentUser.displayName}</h3>
           {status.length >= 14 ? (
