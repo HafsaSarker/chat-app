@@ -1,5 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { getDocs, where, query, collection } from "firebase/firestore";
+import {
+  getDoc,
+  getDocs,
+  where,
+  query,
+  collection,
+  setDoc,
+  doc,
+  updateDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -7,6 +17,7 @@ function Search() {
   const [showCard, setShowCard] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const { currentUser } = useContext(AuthContext);
 
@@ -49,6 +60,51 @@ function Search() {
     setSearchInput(e.target.value);
   };
 
+  // select a user and close search box
+  const selectUser = (user) => {
+    setSelectedUser(user);
+    setShowCard(false);
+  };
+
+  const handleUserSelect = async () => {
+    // check if chat between curr user and selected user exists
+    const combinedId = currentUser.uid + selectedUser.uid;
+
+    try {
+      const res = await getDoc(doc(db, "chats", combinedId));
+
+      // create a chat document if not exists between the two users
+      if (!res.exists()) {
+        // create a chat in chats collection
+        await setDoc(doc(db, "chats", combinedId), { messages: [] });
+
+        // update curr and selected user's collection of "userChats"
+        // "userChats" -> collection of all users the curr user has chatted with
+        await updateDoc(doc(db, "userChats", currentUser.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: selectedUser.uid,
+            displayName: selectedUser.displayName,
+            photoURL: selectedUser.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+
+        await updateDoc(doc(db, "userChats", selectedUser.uid), {
+          [combinedId + ".userInfo"]: {
+            uid: currentUser.uid,
+            displayName: currentUser.displayName,
+            photoURL: currentUser.photoURL,
+          },
+          [combinedId + ".date"]: serverTimestamp(),
+        });
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  selectedUser && handleUserSelect();
+
   return (
     <div className="border-gray-400 text-gray-400  bg-inherit w-full text-sm flex items-center  border-b border-b-gray-1 h-16 py-9 px-2">
       <button
@@ -86,6 +142,7 @@ function Search() {
                 {Object.keys(filteredUsers).map((key, index) => (
                   <div
                     key={index}
+                    onClick={() => selectUser(users[key])}
                     className="flex w-full mt-3 items-center gap-3  py-1.5 px-2 rounded-sm hover:bg-gray-4 cursor-pointer"
                   >
                     <img
