@@ -3,17 +3,7 @@ import Search from "./Search";
 import ChatUser from "./ChatUser";
 import User from "./User";
 import Top from "./Top";
-import {
-  getDoc,
-  getDocs,
-  where,
-  query,
-  collection,
-  setDoc,
-  doc,
-  updateDoc,
-  serverTimestamp,
-} from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -23,17 +13,18 @@ function Sidebar() {
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
-    const fetchChatUsers = async () => {
-      try {
-        const res = await getDoc(doc(db, "userChats", currentUser.uid));
-        setChatUsers(res.data());
-      } catch (error) {
-        console.log(error.message);
-      }
+    const getUserChats = () => {
+      const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
+        setChatUsers(doc.data());
+      });
+
+      return () => {
+        unsub();
+      };
     };
 
-    fetchChatUsers();
-  }, []);
+    currentUser.uid && getUserChats();
+  }, [currentUser.uid]);
 
   return (
     <div className="bg-gray-2 flex flex-col flex-2 h-full text-white">
