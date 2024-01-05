@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
+import { ChatContext } from "../../context/ChatContext";
 
 function Search() {
   const [showCard, setShowCard] = useState(false);
@@ -20,6 +21,7 @@ function Search() {
   const [selectedUser, setSelectedUser] = useState(null);
 
   const { currentUser } = useContext(AuthContext);
+  const { dispatch } = useContext(ChatContext);
 
   useEffect(() => {
     const getAllUsers = async () => {
@@ -64,6 +66,8 @@ function Search() {
   const selectUser = (user) => {
     setSelectedUser(user);
     setShowCard(false);
+
+    dispatch({ type: "CHANGE_USER", payload: user });
   };
 
   const handleUserSelect = async () => {

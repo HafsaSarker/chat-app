@@ -43,8 +43,7 @@ function Sidebar() {
               {Object.keys(chatUsers).map((key, index) => (
                 <ChatUser
                   key={index}
-                  img={chatUsers[key].userInfo.photoURL}
-                  displayName={chatUsers[key].userInfo.displayName}
+                  user={chatUsers[key].userInfo}
                   latestMsg="Static Msg"
                 />
               ))}
