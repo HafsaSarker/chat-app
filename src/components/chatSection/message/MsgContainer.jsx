@@ -33,11 +33,16 @@ function MsgContainer() {
   }, [data.chatId]);
 
   return (
-    <div className="h-full overflow-y-scroll">
+    <div className="h-full overflow-y-auto">
       {messages && messages.length >= 1 ? (
-        <div className="flex flex-col justify-end px-4 gap-4 pb-4">
+        <div className="flex flex-col min-h-full justify-end px-4 gap-4 py-4">
           {messages.map((item) => (
-            <Msg key={item.id} message={item.text} />
+            <Msg
+              key={item.id}
+              message={item.text}
+              senderId={item.senderId}
+              file={item.file ? item.file : null}
+            />
           ))}
         </div>
       ) : (

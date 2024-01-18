@@ -1,22 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
+import { ChatContext } from "../../../context/ChatContext";
 
-function Msg() {
+function Msg({ message, senderId, file }) {
+  const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(ChatContext);
+
   return (
     <div className="flex items-start gap-4">
       <img
         className="w-10 h-10 rounded-full"
-        src="https://www.unisoftbank.com/wp-content/uploads/2022/12/black-cat-pfp-for-discord-10.jpg"
-        alt=""
+        src={
+          senderId === currentUser.uid
+            ? currentUser.photoURL
+            : data.user.photoURL
+        }
       />
 
       <div className="flex flex-col items-start">
         <div className="flex gap-2 items-center">
-          <h3 className="font-semibold text-md">SugarCube</h3>
+          <h3 className="font-semibold text-md">
+            {senderId == currentUser.uid
+              ? currentUser.displayName
+              : data.user.displayName}
+          </h3>
           <span className="text-xs text-gray-400">11/20/2023</span>
           <span className="text-xs text-gray-400">2:22 PM</span>
         </div>
 
-        <p className="text-md">Hey I missed your call</p>
+        <p className="text-md">{message}</p>
+        {file && <img src={file} className="rounded-md" width={150} />}
       </div>
     </div>
   );
