@@ -9,6 +9,8 @@ import { Link, useNavigate } from "react-router-dom";
 function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+  const [isDisabled, setIsDisabled] = useState(false);
+
   const [formData, setFormData] = useState({
     displayName: "",
     email: "",
@@ -32,6 +34,8 @@ function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    setIsDisabled(true);
 
     const { displayName, email, password, avatar } = formData;
 
@@ -69,6 +73,7 @@ function Register() {
       });
     } catch (error) {
       setError(error.message);
+      setIsDisabled(false);
     }
   };
 
@@ -146,6 +151,7 @@ function Register() {
 
         <button
           type="submit"
+          disabled={isDisabled}
           className="mb-2 text-sm font-medium text-white bg-blue-1 border border-blue-1 focus:outline-none hover:opacity-90 rounded-lg px-5 py-2.5"
         >
           Sign Up
