@@ -24,6 +24,7 @@ function MsgContainer() {
   useEffect(() => {
     const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
       doc.exists() && setMessages(doc.data().messages);
+      console.log(doc.data());
     });
 
     return () => {
@@ -32,11 +33,11 @@ function MsgContainer() {
   }, [data.chatId]);
 
   return (
-    <>
-      {messages && messages.length > 1 ? (
-        <div className="h-full flex flex-col justify-end px-4 gap-4 pb-4">
-          {messages.map((item, index) => (
-            <Msg />
+    <div className="h-full overflow-y-scroll">
+      {messages && messages.length >= 1 ? (
+        <div className="flex flex-col justify-end px-4 gap-4 pb-4">
+          {messages.map((item) => (
+            <Msg key={item.id} message={item.text} />
           ))}
         </div>
       ) : (
@@ -48,7 +49,7 @@ function MsgContainer() {
           <img src="./wumpus.png" width={150} />
         </div>
       )}
-    </>
+    </div>
   );
 }
 
