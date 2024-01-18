@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { useRef } from "react";
 import { AuthContext } from "../../../context/AuthContext";
 import { ChatContext } from "../../../context/ChatContext";
 
@@ -6,8 +7,14 @@ function Msg({ message, senderId, file }) {
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
+  const ref = useRef();
+
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  }, [message]);
+
   return (
-    <div className="flex items-start gap-4">
+    <div ref={ref} className="flex items-start gap-4">
       <img
         className="w-10 h-10 rounded-full"
         src={
@@ -29,7 +36,15 @@ function Msg({ message, senderId, file }) {
         </div>
 
         <p className="text-md">{message}</p>
-        {file && <img src={file} className="rounded-md" width={150} />}
+        {file && (
+          <a href={file} target="_blank">
+            <img
+              src={file}
+              className="rounded-md hover:cursor-pointer"
+              width={150}
+            />
+          </a>
+        )}
       </div>
     </div>
   );
