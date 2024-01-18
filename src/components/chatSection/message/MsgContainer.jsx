@@ -2,18 +2,7 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import { ChatContext } from "../../../context/ChatContext";
 import Msg from "./Msg";
-import {
-  getDoc,
-  getDocs,
-  where,
-  query,
-  collection,
-  setDoc,
-  onSnapshot,
-  doc,
-  updateDoc,
-  serverTimestamp,
-} from "firebase/firestore";
+import { onSnapshot, doc } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 function MsgContainer() {
@@ -24,7 +13,7 @@ function MsgContainer() {
   useEffect(() => {
     const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
       doc.exists() && setMessages(doc.data().messages);
-      console.log(doc.data());
+      // console.log(doc.data());
     });
 
     return () => {
@@ -35,14 +24,9 @@ function MsgContainer() {
   return (
     <div className="h-full overflow-y-auto">
       {messages && messages.length >= 1 ? (
-        <div className="flex flex-col min-h-full justify-end px-4 gap-4 py-4">
-          {messages.map((item) => (
-            <Msg
-              key={item.id}
-              message={item.text}
-              senderId={item.senderId}
-              file={item.file ? item.file : null}
-            />
+        <div className="flex flex-col min-h-full justify-end px-4 pb-4">
+          {messages.map((item, index) => (
+            <Msg key={item.id} message={item} allMsgs={messages} indx={index} />
           ))}
         </div>
       ) : (
