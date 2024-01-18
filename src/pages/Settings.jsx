@@ -8,7 +8,7 @@ import { auth } from "../firebase";
 
 function Settings() {
   return (
-    <div className="flex flex-col justify-start items-center h-full w-full bg-gray-3 gap-3 text-gray-50 pt-10">
+    <div className="flex flex-col justify-start items-center h-full w-full bg-gray-3 gap-3 text-gray-50 pt-10 overflow-y-scroll">
       <div className="flex min-w-fit items-center max-w-5xl w-full px-56 justify-between">
         <h2 className="text-2xl font-semibold">My Account</h2>
         <Link
